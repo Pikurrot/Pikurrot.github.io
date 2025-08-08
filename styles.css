@@ -1,0 +1,61 @@
+* { box-sizing: border-box; }
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: #111111;
+  background: #ffffff; /* light mode background */
+  overflow-x: hidden;
+}
+
+/* Fullscreen background canvas */
+#bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  pointer-events: none; /* allow clicks through to content */
+  opacity: 1; /* per-element transparency handled in JS */
+}
+
+.content {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(16px, 4vw, 48px);
+  display: grid;
+  place-items: start;
+  max-width: 1100px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: clamp(28px, 5vw, 54px);
+  letter-spacing: 0.5px;
+  color: #0b0b0b;
+}
+
+p {
+  margin: 6px 0 16px;
+  color: #2b2b2b;
+}
+
+header {
+  margin: 10vh 0 24px;
+}
+
+.links a {
+  display: inline-block;
+  margin-right: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.06);
+  color: #111111;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.links a:hover { background: rgba(0, 0, 0, 0.12); } 
