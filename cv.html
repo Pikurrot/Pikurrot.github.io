@@ -13,7 +13,8 @@
       .cv-actions { display: flex; gap: 10px; align-items: center; }
       .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.05); color: #0b0b0b; text-decoration: none; }
       .btn:hover { background: rgba(0,0,0,0.09); }
-      .cv-embed { width: 100%; height: clamp(60vh, 76vh, 86vh); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; background: rgba(255,255,255,0.6); }
+      .cv-embed { width: 100%; height: clamp(60vh, 76vh, 86vh); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; background: rgba(255,255,255,0.6); display: block; }
+      .cv-fallback { padding: 10px; }
     </style>
   </head>
   <body>
@@ -52,12 +53,23 @@
               <span>Open in new tab</span>
             </a>
           </div>
-          <iframe class="cv-embed" src="assets/cv.pdf" title="Eric López — CV" loading="lazy"></iframe>
+          <object class="cv-embed" data="assets/cv.pdf#view=FitH" type="application/pdf">
+            <embed class="cv-embed" src="assets/cv.pdf#view=FitH" type="application/pdf" />
+            <div class="cv-fallback">
+              <p>Your browser can't display the PDF inline. You can
+                <a href="assets/cv.pdf" target="_blank" rel="noreferrer">open it in a new tab</a>
+                or <a href="assets/cv.pdf" download>download it</a>.
+              </p>
+            </div>
+          </object>
         </div>
       </section>
+
+      <footer id="site-footer" class="site-footer"></footer>
     </main>
 
     <script type="module" src="bg.js"></script>
     <script type="module" src="site.js"></script>
+    <script type="module" src="site-data.js"></script>
   </body>
 </html> 

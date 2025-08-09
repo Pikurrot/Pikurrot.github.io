@@ -138,3 +138,37 @@ p { margin: 6px 0 16px; color: #2b2b2b; }
 
 /* Spacing between multiple featured projects inside a single card */
 .card .project-card + .project-card { margin-top: 18px; } 
+
+/* Experience (LinkedIn-like) */
+.experience-item { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; }
+.exp-left { align-self: start; }
+.exp-logo { width: 56px; height: 56px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); background: #fff; box-shadow: 0 6px 14px rgba(0,0,0,0.06); object-fit: cover; display: block; }
+.exp-right { display: grid; gap: 6px; }
+.exp-title { margin: 0; font-family: var(--display-font); font-weight: 700; font-size: clamp(16px, 2vw, 20px); letter-spacing: 0.2px; }
+.exp-company { color: #222; font-weight: 600; }
+.exp-type { color: #666; }
+.exp-meta { color: #555; font-size: 13px; }
+.exp-location { color: #666; font-size: 13px; }
+.exp-desc { margin: 4px 0 0; color: #2b2b2b; }
+
+@media (max-width: 720px) {
+  .experience-item { grid-template-columns: 48px 1fr; gap: 12px; }
+  .exp-logo { width: 48px; height: 48px; border-radius: 10px; }
+} 
+
+/* Honors & Awards */
+.honors-list { list-style: none; margin: 8px 0 0; padding: 0; }
+.honor-item { padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.08); display: grid; gap: 4px; }
+.honor-item:last-child { border-bottom: 0; }
+.honor-title { font-weight: 700; }
+.honor-place { color: #444; }
+.honor-date { color: #666; font-size: 13px; }
+.honor-desc { color: #2b2b2b; margin: 2px 0 0; } 
+
+/* See all projects link */
+.see-all { display: inline-block; margin-top: 12px; color: #0066cc; text-decoration: none; font-weight: 700; }
+.see-all:hover { text-decoration: underline; }
+
+/* Site footer */
+.site-footer { text-align: center; color: #555; font-size: 13px; padding: 24px 12px; }
+.site-footer small { display: block; opacity: 0.8; } 

@@ -1,0 +1,78 @@
+{
+  "projects": [
+    {
+      "title": "Enhancing Document VQA Models via Retrieval-Augmented Generation",
+      "media": "assets/text_rag.png",
+      "authors": [
+        { "name": "Eric López", "url": "#", "me": true },
+        { "name": "Artemis Llabrés", "url": "https://scholar.google.com/citations?user=0VToXYcAAAAJ&hl=ca&oi=ao" },
+        { "name": "Ernest Valveny", "url": "https://scholar.google.com/citations?user=ChmX8ogAAAAJ&hl=ca&oi=ao" }
+      ],
+      "venue": { "text": "ICDAR 2025 — Workshop on Machine Learning", "url": "#", "muted": false },
+      "links": [
+        { "type": "page", "text": "Page", "url": "https://pikurrot.github.io/RAG-DocVQA/" },
+        { "type": "arxiv", "text": "arXiv (soon!)", "url": "#" },
+        { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/RAG-DocVQA" }
+      ]
+    },
+    {
+      "title": "Whisper-GUI",
+      "media": "assets/whispergui.png",
+      "authors": [ { "name": "Eric López", "url": "#", "me": true } ],
+      "venue": { "text": "Voice transcription software", "muted": true },
+      "links": [
+        { "type": "page", "text": "Page (soon!)", "url": "#" },
+        { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/whisper-gui" }
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "title": "Research Intern",
+      "company": "Computer Vision Center (CVC)",
+      "type": "Internship",
+      "start": "2024-09-05",
+      "end": null,
+      "location": "Barcelona, Catalonia, Spain",
+      "logo": "assets/cvc.png",
+      "description": "Implemented a RAG system for a multimodal document question answering LLM, improving the performance of baseline models considerably on multi-page settings. I wrote a paper on it, which got accepted in a workshop at ICDAR 2025, and I will present it in Wuhan, China. I also did research on Mixture of Experts, and currently exploring new paradigms in the verification of multimodal Fake News."
+    }
+  ],
+  "education": [
+    {
+      "title": "Bachelor in Artificial Intelligence",
+      "company": "Autonomous University of Barcelona",
+      "start": "2022-09-01",
+      "end": "2026-06-30",
+      "location": "Barcelona, Catalonia, Spain",
+      "logo": "assets/uab.png",
+      "description": "A technical degree covering core computer science fundamentals, with a strong emphasis on Data Science and Artificial Intelligence subjects, and their practical implementation."
+    }
+  ],
+  "honors": [
+    {
+		"title": "5% of my promotion",
+		"place": "UAB",
+		"date": "2025-07-01",
+		"description": "With a GPA of 8.9/10, I rank as one of the top students with multiple honors in core subjects, such as Deep Learning, Fundamentals of Machine Learning and Fundamentals of Natural Language Processing."
+    },
+	{
+		"title": "Elena Maseras Scholarship",
+		"place": "CVC",
+		"date": "2025-07-01",
+		"description": "A scholarship that allows students to do advanced research at Computer Vision Center next to the most talented researchers in the field."
+    },
+	{
+		"title": "Rosa Sensat Scholarship",
+		"place": "CVC",
+		"date": "2024-07-01",
+		"description": "A scholarship to introduce students to do research in AI at Computer Vision Center."
+    },
+	{
+		"title": "First prize - Joana Biarnés Awards",
+		"place": "IES Matadepera",
+		"date": "2022-04-01",
+		"description": "Awards for the best research work (TDR) in high school in Terrassa, Matadepera and Viladecavalls. First prize in Technological category with the work: Machine Learning and Artificial Neural Network programming."
+	}
+  ]
+} 

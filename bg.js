@@ -24,14 +24,13 @@ const FALLING_PIECE_COLOR = '#b9c4d8';
 
 // Transparency controls
 const ALPHA_BG = 0.10;         // background board fill
-const ALPHA_BLOCK = 0.15;      // static placed blocks
-const ALPHA_FALLING = 0.1;    // falling pieces (far)
+const ALPHA_BLOCK = 0.10;      // static placed blocks
 const ALPHA_PARTICLE = 0.1;   // particles
 const ALPHA_SNAKE = 0.40;      // snake segments
 const ALPHA_APPLE = 0.40;      // apple
 // Falling piece alpha range by proximity to landing
 const FALLING_ALPHA_FAR = 0.03;   // when far from landing
-const FALLING_ALPHA_NEAR = 0.2;           // when very close to landing
+const FALLING_ALPHA_NEAR = 0.12;           // when very close to landing
 
 // Dynamic distraction reduction state
 let focusDampen = 1.0; // multiplies alphas and speeds when user interacts with content
@@ -42,6 +41,9 @@ const SNAKE_MIN_BUILD_ROWS = 6;
 const SNAKE_MAX_LEN = 4;
 const SNAKE_STEP_MS_SLOW = 320;
 const SNAKE_STEP_MS_FAST = 10;
+// Controls how strongly snake speed increases with number of filled rows
+// 1.0 = default linear; <1.0 = gentler speed-up; >1.0 = stronger speed-up
+const SNAKE_SPEED_RATE = 3.0;
 const PIECE_GRAVITY_MS_DEFAULT = 60;
 const GRAVITY_MIN_MS = 10;
 const BALANCE_INTERVAL_MS = 3000; // 3 seconds (how often to balance the world speed with the snake speed)
@@ -63,7 +65,7 @@ const SNAKE_WORLD_SPEED_RATE = 0.6;
 const BASE_VIEWPORT_W = 1280;
 const BASE_VIEWPORT_H = 720;
 const BASE_MIN_CELL_PX = 16; // min cell size at baseline viewport
-const CELL_SIZE_SCALE_RATE = 0.75; // 0=no change, 1=scale min cell linearly with sqrt(area)
+const CELL_SIZE_SCALE_RATE = 1; // 0=no change, 1=scale min cell linearly with sqrt(area)
 const MAX_CELL_PX = 64; // clamp for very large screens
 
 // Particles
@@ -529,7 +531,7 @@ function drawGrid(ctx, grid, snake, fallingPieces, particles) {
 
   // Board cells
   ctx.save();
-  ctx.globalAlpha = ALPHA_BLOCK * Math.min(focusDampen, scrollDampen);
+  ctx.globalAlpha = ALPHA_BLOCK;
   for (let y = 0; y < gridH; y++) {
     for (let x = 0; x < gridW; x++) {
       const rx = ox + x * (CELL + MARGIN);
@@ -542,7 +544,6 @@ function drawGrid(ctx, grid, snake, fallingPieces, particles) {
 
   // Falling pieces overlay
   if (fallingPieces.length) {
-    const damp = Math.min(focusDampen, scrollDampen);
     for (const fp of fallingPieces) {
       const { shape, sx } = fp;
       const syCur = fp.sy;
@@ -550,7 +551,7 @@ function drawGrid(ctx, grid, snake, fallingPieces, particles) {
       const totalDrop = Math.max(1, fp.totalDrop != null ? fp.totalDrop : (syTarget - syCur));
       const distRemaining = Math.max(0, syTarget - syCur);
       const proximity = 1 - Math.min(1, distRemaining / totalDrop); // 0 far -> 1 near
-      const pieceAlpha = (FALLING_ALPHA_FAR + (FALLING_ALPHA_NEAR - FALLING_ALPHA_FAR) * proximity) * damp;
+      const pieceAlpha = (FALLING_ALPHA_FAR + (FALLING_ALPHA_NEAR - FALLING_ALPHA_FAR) * proximity);
       for (const [dx, dy] of shape) {
         const x = sx + dx, y = syCur + dy;
         if (!inBounds(x, y)) continue;
@@ -571,7 +572,7 @@ function drawGrid(ctx, grid, snake, fallingPieces, particles) {
     const rx = ox + ax * (CELL + MARGIN);
     const ry = oy + ay * (CELL + MARGIN);
     ctx.save();
-    ctx.globalAlpha = ALPHA_APPLE * focusDampen;
+    ctx.globalAlpha = ALPHA_APPLE;
     ctx.fillStyle = APPLE_COLOR;
     roundRect(ctx, rx, ry, CELL, CELL, 6);
     ctx.restore();
@@ -588,7 +589,7 @@ function drawGrid(ctx, grid, snake, fallingPieces, particles) {
       const rx = ox + x * (CELL + MARGIN) + inset;
       const ry = oy + y * (CELL + MARGIN) + inset;
       ctx.save();
-      ctx.globalAlpha = ALPHA_SNAKE * focusDampen;
+      ctx.globalAlpha = ALPHA_SNAKE;
       ctx.fillStyle = i === 0 ? SNAKE_COLOR : SNAKE_TAIL;
       roundRect(ctx, rx, ry, size, size, 8);
       ctx.restore();
@@ -598,7 +599,7 @@ function drawGrid(ctx, grid, snake, fallingPieces, particles) {
   // Particles
   if (particles.length) {
     ctx.save();
-    ctx.globalAlpha = ALPHA_PARTICLE * Math.min(focusDampen, scrollDampen);
+    ctx.globalAlpha = ALPHA_PARTICLE;
     for (const p of particles) {
       const lifeRatio = Math.max(0, Math.min(1, p.life / p.maxLife));
       const size = Math.max(1, (p.size * lifeRatio));
@@ -622,7 +623,7 @@ let grid = emptyGrid();
 const snake = new Snake();
 const pieceQueue = [];
 refillQueue(pieceQueue, NEXT_PREVIEW + 5);
-let fallingPieces = [];
+let falling_pieces = [];
 let particles = [];
 
 let fallTimer = 0;
@@ -637,11 +638,158 @@ let spawnTimer = 0;
 let nextSpawnDelayMs = 0;
 let baseSpawnDelayMs = 220;
 
+let sandReflowActive = false;
+let sandStableFrames = 0;
+let snakeFrozenDuringReflow = false;
+let reflowSnakeNorm = null; // array of [nx, ny] in [0..1]
+let reflowAppleNorm = null; // [nx, ny]
+
+function mapNormToGrid(norm, w, h) {
+  const x = Math.min(w - 1, Math.max(0, Math.round((norm[0] || 0) * (w - 1))));
+  const y = Math.min(h - 1, Math.max(0, Math.round((norm[1] || 0) * (h - 1))));
+  return [x, y];
+}
+
+function startSandReflow(newCols, newRows) {
+  // Capture normalized snake and apple positions
+  const oldW = gridW;
+  const oldH = gridH;
+  if (snake && snake.body && snake.body.length) {
+    const denomX = Math.max(1, oldW - 1);
+    const denomY = Math.max(1, oldH - 1);
+    reflowSnakeNorm = snake.body.map(([x, y]) => [x / denomX, y / denomY]);
+  } else {
+    reflowSnakeNorm = null;
+  }
+  if (snake && snake.apple) {
+    const denomX = Math.max(1, oldW - 1);
+    const denomY = Math.max(1, oldH - 1);
+    reflowAppleNorm = [snake.apple[0] / denomX, snake.apple[1] / denomY];
+  } else {
+    reflowAppleNorm = null;
+  }
+
+  // Map old filled cells into new grid dimensions
+  const filled = [];
+  for (let y = 0; y < oldH; y++) {
+    for (let x = 0; x < oldW; x++) {
+      if (grid[y][x] === 1) filled.push([x, y]);
+    }
+  }
+  gridW = newCols;
+  gridH = newRows;
+  grid = emptyGrid();
+  // Place mapped blocks
+  const denomX = Math.max(1, oldW - 1);
+  const denomY = Math.max(1, oldH - 1);
+  for (const [ox, oy] of filled) {
+    const nx = Math.min(gridW - 1, Math.max(0, Math.round((ox / denomX) * (gridW - 1))));
+    const ny = Math.min(gridH - 1, Math.max(0, Math.round((oy / denomY) * (gridH - 1))));
+    grid[ny][nx] = 1;
+  }
+  // Clear active falling pieces to avoid conflicts
+  falling_pieces = [];
+
+  // Freeze snake and apple mapped to new grid without stepping
+  if (reflowSnakeNorm) {
+    snake.body = reflowSnakeNorm.map(n => mapNormToGrid(n, gridW, gridH));
+    snake.alive = true;
+  } else {
+    snake.alive = false;
+    snake.body = [];
+  }
+  if (reflowAppleNorm) {
+    snake.apple = mapNormToGrid(reflowAppleNorm, gridW, gridH);
+  } else {
+    snake.apple = null;
+  }
+
+  snakeFrozenDuringReflow = true;
+  sandReflowActive = true;
+  sandStableFrames = 0;
+}
+
+function snapSnakeAndAppleToSand() {
+  if (!snake || !snake.body || snake.body.length === 0) return;
+  // Drop the head to nearest fill in same column
+  const head = snake.body[0].slice();
+  let yDrop = head[1];
+  while (yDrop + 1 < gridH && grid[yDrop + 1][head[0]] === 0) yDrop++;
+  const delta = yDrop - head[1];
+  if (delta !== 0) {
+    snake.body = snake.body.map(([x, y]) => {
+      let ny = Math.min(gridH - 1, Math.max(0, y + delta));
+      return [x, ny];
+    });
+  }
+  // Ensure segments lie on filled cells by dropping any that are floating
+  snake.body = snake.body.map(([x, y]) => {
+    let ny = y;
+    while (ny + 1 < gridH && grid[ny][x] === 0) ny++;
+    return [x, ny];
+  });
+  // Snap apple similarly if present
+  if (snake.apple) {
+    let [ax, ay] = snake.apple;
+    while (ay + 1 < gridH && grid[ay + 1][ax] === 0) ay++;
+    if (grid[ay][ax] === 0) {
+      // if column empty, search downward to bottom-most filled cell in column
+      for (let yy = gridH - 1; yy >= 0; yy--) {
+        if (grid[yy][ax] === 1) { ay = yy; break; }
+      }
+    }
+    snake.apple = [ax, ay];
+  }
+}
+
+function settleSandStep() {
+  let moved = false;
+  // Iterate bottom-up
+  for (let y = gridH - 2; y >= 0; y--) {
+    // Randomize horizontal scan direction per row to reduce bias
+    const leftToRight = ((y * 9301 + 49297) % 233280) % 2 === 0;
+    if (leftToRight) {
+      for (let x = 0; x < gridW; x++) {
+        if (grid[y][x] !== 1) continue;
+        if (grid[y + 1][x] === 0) {
+          grid[y + 1][x] = 1; grid[y][x] = 0; moved = true; continue;
+        }
+        const dirFirst = ((x * 1103515245 + 12345) >>> 0) % 2 === 0 ? -1 : 1;
+        const dirs = [dirFirst, -dirFirst];
+        for (const dx of dirs) {
+          const nx = x + dx;
+          if (nx < 0 || nx >= gridW) continue;
+          if (grid[y][nx] === 0 && grid[y + 1][nx] === 0) {
+            grid[y + 1][nx] = 1; grid[y][x] = 0; moved = true; break;
+          }
+        }
+      }
+    } else {
+      for (let x = gridW - 1; x >= 0; x--) {
+        if (grid[y][x] !== 1) continue;
+        if (grid[y + 1][x] === 0) {
+          grid[y + 1][x] = 1; grid[y][x] = 0; moved = true; continue;
+        }
+        const dirFirst = ((x * 1664525 + 1013904223) >>> 0) % 2 === 0 ? -1 : 1;
+        const dirs = [dirFirst, -dirFirst];
+        for (const dx of dirs) {
+          const nx = x + dx;
+          if (nx < 0 || nx >= gridW) continue;
+          if (grid[y][nx] === 0 && grid[y + 1][nx] === 0) {
+            grid[y + 1][nx] = 1; grid[y][x] = 0; moved = true; break;
+          }
+        }
+      }
+    }
+  }
+  return moved;
+}
+
 function resetWorld(newCols, newRows) {
   gridW = newCols;
   gridH = newRows;
   grid = emptyGrid();
-  fallingPieces = [];
+  falling_pieces = [];
   particles = [];
   snake.alive = false;
   snake.body = [];
@@ -747,7 +895,7 @@ function resizeCanvas() {
   padY = (innerH - best.gridPxH) / 2;
 
   if (dimsChanged) {
-    resetWorld(best.cols, best.rows);
+    startSandReflow(best.cols, best.rows);
   }
   // Recompute speeds and concurrency on every resize
   const { basePieceGravity, concurrent, baseSpawnDelayMs: spawnBase } = computeWorldParams();
@@ -770,14 +918,14 @@ function shuffle(arr) {
 
 function trySpawnPieces() {
   // Spawn at most one piece per delay window
-  if (fallingPieces.length >= maxConcurrentPieces) return;
+  if (falling_pieces.length >= maxConcurrentPieces) return;
   if (spawnTimer < nextSpawnDelayMs) return;
 
   if (pieceQueue.length < NEXT_PREVIEW + 1) refillQueue(pieceQueue, NEXT_PREVIEW + 5);
 
   // Avoid column overlap with existing falling pieces
   const reservedCols = new Set();
-  for (const fp of fallingPieces) for (const c of fp.cols) reservedCols.add(c);
+  for (const fp of falling_pieces) for (const c of fp.cols) reservedCols.add(c);
 
   if (!pieceQueue.length) return;
   const pieceKey = pieceQueue[0];
@@ -805,7 +953,7 @@ function trySpawnPieces() {
     let sySpawn = Math.max(0, -miny);
     while (sySpawn < sy && collides(grid, shape, sx, sySpawn)) sySpawn++;
     const totalDrop = Math.max(1, sy - sySpawn);
-    fallingPieces.push({ key: pieceKey, shape, sx, sy: sySpawn, cols, targetSy: sy, totalDrop });
+    falling_pieces.push({ key: pieceKey, shape, sx, sy: sySpawn, cols, targetSy: sy, totalDrop });
     for (const c of cols) reservedCols.add(c);
     pieceQueue.shift();
 
@@ -821,29 +969,8 @@ function trySpawnPieces() {
   spawnTimer = 0;
 }
 
-// Reduce distraction: dampen animation on user interactions
-let dampenTimeout = null;
-function setFocusDampen(value, durationMs = 1500) {
-  focusDampen = Math.max(0.3, Math.min(1.0, value));
-  if (dampenTimeout) clearTimeout(dampenTimeout);
-  dampenTimeout = setTimeout(() => { focusDampen = 1.0; }, durationMs);
-}
-
-window.addEventListener('scroll', () => {
-  // More scroll => more dampening
-  scrollDampen = 0.6;
-  clearTimeout(window.__scrollReset);
-  window.__scrollReset = setTimeout(() => { scrollDampen = 1.0; }, 600);
-}, { passive: true });
-
-// Dampen when mouse moves over content area (top-left to bottom-right)
-window.addEventListener('mousemove', (e) => {
-  // If pointer is over left/top 70% of the page, assume reading focus
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  const inFocusZone = (e.clientX < vw * 0.85 && e.clientY < vh * 0.85);
-  if (inFocusZone) setFocusDampen(0.65, 1200);
-});
+// Remove interaction dampening handlers (no-ops now)
+// Previously: setFocusDampen, scroll and mousemove listeners
 
 // Game loop
 let lastTs = performance.now();
@@ -858,89 +985,99 @@ function step(now) {
   lastTs = now;
   if (pause) { requestAnimationFrame(step); return; }
 
-  // Apply dampening to speeds as well
-  const speedDampen = Math.min(focusDampen, scrollDampen);
+  // Fixed speeds (no dampening)
+  fallTimer += dt;
+  snakeTimer += dt;
+  balanceTimer += dt;
+  spawnTimer += dt;
 
-  fallTimer += dt * speedDampen;
-  snakeTimer += dt * speedDampen;
-  balanceTimer += dt * speedDampen;
-  spawnTimer += dt * speedDampen;
-
-  trySpawnPieces();
-
-  // Falling pieces
-  if (fallingPieces.length && fallTimer >= pieceGravityMs) {
-    const steps = Math.min(4, Math.floor(fallTimer / pieceGravityMs));
-    fallTimer = fallTimer % pieceGravityMs;
-    for (let s = 0; s < steps; s++) {
-      const newList = [];
-      for (const fp of fallingPieces) {
-        const { sx, sy, shape } = fp;
-        if (collides(grid, shape, sx, sy + 1)) {
-          for (const [dx, dy] of shape) {
-            const x = sx + dx, y = sy + dy;
-            if (inBounds(x, y)) grid[y][x] = 1;
+  if (sandReflowActive) {
+    let movedAny = false;
+    for (let i = 0; i < 6; i++) {
+      if (settleSandStep()) movedAny = true; else break;
+    }
+    if (!movedAny) {
+      sandStableFrames += 1;
+      if (sandStableFrames >= 8) {
+        sandReflowActive = false;
+        snakeFrozenDuringReflow = false;
+        snapSnakeAndAppleToSand();
+      }
+    } else {
+      sandStableFrames = 0;
+    }
+  } else {
+    // Falling pieces motion
+    if (falling_pieces.length && fallTimer >= pieceGravityMs) {
+      const steps = Math.min(4, Math.floor(fallTimer / pieceGravityMs));
+      fallTimer = fallTimer % pieceGravityMs;
+      for (let s = 0; s < steps; s++) {
+        const newList = [];
+        for (const fp of falling_pieces) {
+          const { sx, sy, shape } = fp;
+          if (collides(grid, shape, sx, sy + 1)) {
+            for (const [dx, dy] of shape) {
+              const x = sx + dx, y = sy + dy;
+              if (inBounds(x, y)) grid[y][x] = 1;
+            }
+            piecesLockedCount++;
+          } else {
+            fp.sy = sy + 1;
+            newList.push(fp);
           }
-          piecesLockedCount++;
-        } else {
-          fp.sy = sy + 1;
-          newList.push(fp);
+        }
+        falling_pieces = newList;
+      }
+    }
+
+    trySpawnPieces();
+
+    // Snake spawn or step
+    if (!snake.alive && countNonEmptyRows(grid) >= SNAKE_MIN_BUILD_ROWS) {
+      snake.resetOnGrid(grid);
+    }
+
+    const rows = countNonEmptyRows(grid);
+    const t = Math.max(0, Math.min(1, rows / gridH));
+    const tEff = Math.max(0, Math.min(1, t * SNAKE_SPEED_RATE));
+    const snakeStepMs = (SNAKE_STEP_MS_SLOW + (SNAKE_STEP_MS_FAST - SNAKE_STEP_MS_SLOW) * tEff) | 0;
+
+    if (!snakeFrozenDuringReflow && snakeTimer >= snakeStepMs && snake.alive) {
+      snakeTimer = 0;
+      const res = snake.step(grid);
+      if (res === 'dead') {
+        snake.resetOnGrid(grid);
+      } else if (res === 'apple') {
+        applesEatenCount++;
+        for (const fp of falling_pieces) {
+          fp.sy = Math.min(gridH - 1, fp.sy + 1);
+          if (fp.targetSy != null) fp.targetSy = Math.min(gridH - 1, fp.targetSy + 1);
+        }
+        spawnRowParticles(particles, snake.lastRemovedCells);
+        spawnAppleParticles(particles, snake.lastAppleEatenPos);
+      } else if (res === 'apple_no_shrink') {
+        applesEatenCount++;
+        spawnAppleParticles(particles, snake.lastAppleEatenPos);
+      }
+    }
+
+    if (AUTO_BALANCE && balanceTimer >= BALANCE_INTERVAL_MS) {
+      balanceTimer = 0;
+      if (applesEatenCount > piecesLockedCount) {
+        if (pieceGravityMs > GRAVITY_MIN_MS) {
+          pieceGravityMs = Math.max(GRAVITY_MIN_MS, (pieceGravityMs * 0.85) | 0);
         }
       }
-      fallingPieces = newList;
+      piecesLockedCount = 0;
+      applesEatenCount = 0;
     }
-  }
-
-  // Snake spawn
-  if (!snake.alive && countNonEmptyRows(grid) >= SNAKE_MIN_BUILD_ROWS) {
-    snake.resetOnGrid(grid);
-  }
-
-  // Snake speed scales with world size (rows fraction)
-  const rows = countNonEmptyRows(grid);
-  let t = Math.max(0, Math.min(1, rows / gridH));
-  // World-size boost: larger area increases effective progress toward fast speed
-  const worldAreaRatio = (gridW * gridH) / (BASE_W_BASELINE * BASE_H_BASELINE);
-  const worldBoost = Math.max(0.2, 1 + SNAKE_WORLD_SPEED_RATE * (worldAreaRatio - 1));
-  t = Math.max(0, Math.min(1, t * worldBoost));
-  const snakeStepMs = (SNAKE_STEP_MS_SLOW + (SNAKE_STEP_MS_FAST - SNAKE_STEP_MS_SLOW) * t) | 0;
-
-  if (snakeTimer >= snakeStepMs && snake.alive) {
-    snakeTimer = 0;
-    const res = snake.step(grid);
-    if (res === 'dead') {
-      snake.resetOnGrid(grid);
-    } else if (res === 'apple') {
-      applesEatenCount++;
-      for (const fp of fallingPieces) {
-        fp.sy = Math.min(gridH - 1, fp.sy + 1);
-        if (fp.targetSy != null) fp.targetSy = Math.min(gridH - 1, fp.targetSy + 1);
-      }
-      spawnRowParticles(particles, snake.lastRemovedCells);
-      spawnAppleParticles(particles, snake.lastAppleEatenPos);
-    } else if (res === 'apple_no_shrink') {
-      applesEatenCount++;
-      spawnAppleParticles(particles, snake.lastAppleEatenPos);
-    }
-  }
-
-  // Auto balance (only speed up Tetris)
-  if (AUTO_BALANCE && balanceTimer >= BALANCE_INTERVAL_MS) {
-    balanceTimer = 0;
-    if (applesEatenCount > piecesLockedCount) {
-      if (pieceGravityMs > GRAVITY_MIN_MS) {
-        pieceGravityMs = Math.max(GRAVITY_MIN_MS, (pieceGravityMs * 0.85) | 0);
-      }
-    }
-    piecesLockedCount = 0;
-    applesEatenCount = 0;
   }
 
   // Particles
   updateParticles(particles, dt);
 
   // Draw
-  drawGrid(ctx, grid, snake, fallingPieces, particles);
+  drawGrid(ctx, grid, snake, falling_pieces, particles);
 
   requestAnimationFrame(step);
 }
