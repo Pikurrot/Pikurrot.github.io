@@ -8,7 +8,7 @@
         { "name": "Artemis Llabrés", "url": "https://scholar.google.com/citations?user=0VToXYcAAAAJ&hl=ca&oi=ao" },
         { "name": "Ernest Valveny", "url": "https://scholar.google.com/citations?user=ChmX8ogAAAAJ&hl=ca&oi=ao" }
       ],
-      "venue": { "text": "ICDAR 2025 — Workshop on Machine Learning", "url": "#", "muted": false },
+      "venue": { "text": "ICDAR 2025 — Workshop on Machine Learning", "url": "https://www2.isical.ac.in/~umapada/ICDARWML25/", "muted": false },
       "links": [
         { "type": "page", "text": "Page", "url": "https://pikurrot.github.io/RAG-DocVQA/" },
         { "type": "arxiv", "text": "arXiv (soon!)", "url": "#" },
@@ -47,14 +47,50 @@
       "location": "Barcelona, Catalonia, Spain",
       "logo": "assets/uab.png",
       "description": "A technical degree covering core computer science fundamentals, with a strong emphasis on Data Science and Artificial Intelligence subjects, and their practical implementation."
-    }
+    },
+	{
+		"title": "AIHUB workshop",
+		"company": "CSIC",
+		"start": "2023-07-01",
+		"end": "2023-07-01",
+		"location": "Barcelona, Catalonia, Spain",
+		"logo": "assets/csic.png",
+		"description": "A summer workshop on Data Science, Robotics and AI, including lectures, practical sessions, seminars and hackathons."
+	},
+	{
+		"title": "Science and Technology High School",
+		"company": "IES Matadepera",
+		"start": "2020-09-01",
+		"end": "2022-06-30",
+		"location": "Matadepera, Catalonia, Spain",
+		"logo": "assets/ies_matadepera.png",
+		"description": "A high school degree with a strong emphasis on Science and Technology. Avg grade: 9.1/10. I obtained a final grade of 10 in six subjects including Physics (x2), Mathematics (x2), Technical Drawing and Electrical Engineering. I also got the highest grade in the final Research Work and an award (see Honors and Awards)."
+	},
+	{
+		"title": "Workshop in UAVs",
+		"company": "UPC",
+		"start": "2018-09-01",
+		"end": "2018-09-01",
+		"location": "Terrassa, Catalonia, Spain",
+		"logo": "assets/upc.jpeg",
+		"description": "Assembly, configuration and flight of a UAV (drone)."
+	},
+	{
+		"title": "Workshop in Engineering",
+		"company": "Agrupació Astronòmica de Sabadell",
+		"start": "2016-07-01",
+		"end": "2017-07-01",
+		"location": "Sabadell, Catalonia, Spain",
+		"logo": "assets/astrosabadell.png",
+		"description": "Arduino, Python scientific programming and App development with App Inventor."
+	}
   ],
   "honors": [
     {
 		"title": "5% of my promotion",
 		"place": "UAB",
 		"date": "2025-07-01",
-		"description": "With a GPA of 8.9/10, I rank as one of the top students with multiple honors in core subjects, such as Deep Learning, Fundamentals of Machine Learning and Fundamentals of Natural Language Processing."
+		"description": "With a GPA of 8.9/10, I rank as one of the top students with multiple honors in core subjects, such as Deep Learning, Fundamentals of Machine Learning or Fundamentals of Natural Language Processing."
     },
 	{
 		"title": "Elena Maseras Scholarship",

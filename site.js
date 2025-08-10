@@ -69,7 +69,18 @@ function isInternalNavLink(a) {
   return ['index.html', '/index.html', 'projects.html', '/projects.html', 'cv.html', '/cv.html'].includes(href);
 }
 
+// Intercept header link clicks
 header?.addEventListener('click', (e) => {
+  const a = e.target.closest('a');
+  if (!a) return;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  if (!isInternalNavLink(a)) return;
+  e.preventDefault();
+  navigate(a.getAttribute('href'));
+});
+
+// Intercept internal links anywhere in the document (e.g., 'See all projects')
+document.addEventListener('click', (e) => {
   const a = e.target.closest('a');
   if (!a) return;
   if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;

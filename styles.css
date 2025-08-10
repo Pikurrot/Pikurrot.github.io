@@ -140,7 +140,13 @@ p { margin: 6px 0 16px; color: #2b2b2b; }
 .card .project-card + .project-card { margin-top: 18px; } 
 
 /* Experience (LinkedIn-like) */
-.experience-item { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; }
+.experience-item { 
+  display: grid; 
+  grid-template-columns: auto 1fr; 
+  gap: 16px; 
+  align-items: start; 
+  margin-bottom: 32px;
+}
 .exp-left { align-self: start; }
 .exp-logo { width: 56px; height: 56px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); background: #fff; box-shadow: 0 6px 14px rgba(0,0,0,0.06); object-fit: cover; display: block; }
 .exp-right { display: grid; gap: 6px; }

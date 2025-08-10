@@ -17,6 +17,20 @@ function fmtDuration(startISO, endISO) {
   return parts.join(', ');
 }
 
+function fmtMonthYear(d) {
+  const dt = (d instanceof Date) ? d : new Date(d);
+  const mon = dt.toLocaleString(undefined, { month: 'short' });
+  const yr = String(dt.getFullYear());
+  return `${mon} ${yr}`;
+}
+
+function sameMonthYear(aISO, bISO) {
+  if (!aISO || !bISO) return false;
+  const a = new Date(aISO);
+  const b = new Date(bISO);
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
+}
+
 function el(html) {
   const t = document.createElement('template');
   t.innerHTML = html.trim();
@@ -67,9 +81,10 @@ function renderProject(p) {
 }
 
 function renderExperience(e) {
+  const endText = e.end ? fmtMonthYear(e.end) : 'Present';
+  const startText = fmtMonthYear(e.start);
+  const dateText = (e.end && sameMonthYear(e.start, e.end)) ? startText : `${startText} – ${endText}`;
   const duration = fmtDuration(e.start, e.end);
-  const endText = e.end ? new Date(e.end).toLocaleString(undefined, { year: 'numeric', month: 'short' }) : 'Present';
-  const startText = new Date(e.start).toLocaleString(undefined, { year: 'numeric', month: 'short' });
   return el(`
     <article class="experience-item">
       <div class="exp-left">
@@ -78,7 +93,7 @@ function renderExperience(e) {
       <div class="exp-right">
         <h3 class="exp-title">${e.title}</h3>
         <div><span class="exp-company">${e.company}</span> · <span class="exp-type">${e.type || ''}</span></div>
-        <div class="exp-meta">${startText} – ${endText} · ${duration}</div>
+        <div class="exp-meta">${dateText} · ${duration}</div>
         <div class="exp-location">${e.location || ''}</div>
         <p class="exp-desc">${e.description || ''}</p>
       </div>
@@ -87,8 +102,9 @@ function renderExperience(e) {
 }
 
 function renderEducation(ed) {
-  const endText = ed.end ? new Date(ed.end).toLocaleString(undefined, { year: 'numeric', month: 'short' }) : 'Present';
-  const startText = new Date(ed.start).toLocaleString(undefined, { year: 'numeric', month: 'short' });
+  const endText = ed.end ? fmtMonthYear(ed.end) : 'Present';
+  const startText = fmtMonthYear(ed.start);
+  const dateText = (ed.end && sameMonthYear(ed.start, ed.end)) ? startText : `${startText} – ${endText}`;
   return el(`
     <article class="experience-item">
       <div class="exp-left">
@@ -97,7 +113,7 @@ function renderEducation(ed) {
       <div class="exp-right">
         <h3 class="exp-title">${ed.title}</h3>
         <div><span class="exp-company">${ed.company}</span> · <span class="exp-type">${ed.type || ''}</span></div>
-        <div class="exp-meta">${startText} – ${endText}</div>
+        <div class="exp-meta">${dateText}</div>
         <div class="exp-location">${ed.location || ''}</div>
         <p class="exp-desc">${ed.description || ''}</p>
       </div>
@@ -106,8 +122,7 @@ function renderEducation(ed) {
 }
 
 function renderHonor(h) {
-  const dt = new Date(h.date);
-  const dateText = dt.toLocaleString(undefined, { year: 'numeric', month: 'short' });
+  const dateText = fmtMonthYear(h.date);
   return el(`
     <li class="honor-item">
       <div><span class="honor-title">${h.title}</span> — <span class="honor-place">${h.place}</span></div>
@@ -123,9 +138,9 @@ async function fetchLastCommitDate() {
     if (!res.ok) throw new Error('GitHub API error');
     const data = await res.json();
     const date = new Date(data[0]?.commit?.committer?.date || Date.now());
-    return date.toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    return fmtMonthYear(date);
   } catch (e) {
-    return new Date().toLocaleString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    return fmtMonthYear(new Date());
   }
 }
 
