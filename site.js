@@ -53,10 +53,8 @@ async function navigate(url, push = true) {
     if (push) history.pushState({ url: u.pathname }, '', u.pathname);
     setActivePath(u.pathname);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // Rehydrate dynamic sections if available
     if (window.hydrateSiteData) window.hydrateSiteData();
   } catch (err) {
-    // Fallback to full navigation
     location.assign(url);
   }
 }
@@ -65,11 +63,14 @@ function isInternalNavLink(a) {
   if (!a || a.target === '_blank' || a.hasAttribute('download')) return false;
   const href = a.getAttribute('href');
   if (!href) return false;
-  // Only intercept our top-level pages
-  return ['index.html', '/index.html', 'projects.html', '/projects.html', 'cv.html', '/cv.html'].includes(href);
+  return [
+    'index.html', '/index.html',
+    'projects.html', '/projects.html',
+    'hackathons.html', '/hackathons.html',
+    'cv.html', '/cv.html'
+  ].includes(href);
 }
 
-// Intercept header link clicks
 header?.addEventListener('click', (e) => {
   const a = e.target.closest('a');
   if (!a) return;
@@ -79,7 +80,6 @@ header?.addEventListener('click', (e) => {
   navigate(a.getAttribute('href'));
 });
 
-// Intercept internal links anywhere in the document (e.g., 'See all projects')
 document.addEventListener('click', (e) => {
   const a = e.target.closest('a');
   if (!a) return;
@@ -94,5 +94,4 @@ window.addEventListener('popstate', (e) => {
   navigate(path, false);
 });
 
-// Initial active highlight
 setActivePath(location.pathname.endsWith('/') ? '/index.html' : location.pathname); 

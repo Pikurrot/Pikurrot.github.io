@@ -178,3 +178,35 @@ p { margin: 6px 0 16px; color: #2b2b2b; }
 /* Site footer */
 .site-footer { text-align: center; color: #555; font-size: 13px; padding: 24px 12px; }
 .site-footer small { display: block; opacity: 0.8; } 
+
+/* CV page styles */
+.cv-wrap { display: grid; gap: 16px; }
+.cv-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.05); color: #0b0b0b; text-decoration: none; font-weight: 600; }
+.btn:hover { background: rgba(0,0,0,0.09); }
+.cv-embed { width: 100%; height: clamp(60vh, 76vh, 86vh); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; background: rgba(255,255,255,0.6); display: block; }
+.cv-fallback { padding: 10px; } 
+
+/* Hackathons */
+.hack-card { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(16px, 3vw, 28px); align-items: center; }
+.hack-left { display: grid; gap: 8px; border-left: 4px solid #0a7bdc; padding-left: 12px; }
+.hack-title { font-family: var(--display-font); font-weight: 700; font-size: clamp(18px, 2.4vw, 24px); margin: 0; letter-spacing: 0.2px; }
+.hack-meta { color: #444; font-size: 13px; }
+.hack-desc { color: #2b2b2b; margin: 4px 0 0; }
+.hack-links { display: flex; gap: 10px; flex-wrap: wrap; }
+.hack-link { display: inline-flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.06); background: rgba(10, 123, 220, 0.07); color: #0b0b0b; text-decoration: none; font-weight: 600; font-size: 13px; }
+.hack-link:hover { background: rgba(10, 123, 220, 0.12); }
+
+.hack-right { justify-self: start; }
+.hack-media { width: clamp(240px, 30vw, 480px); height: clamp(160px, 18vw, 220px); border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); background: #fff; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+.hack-media.single { grid-template-columns: 1fr; }
+.hack-media img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+
+@media (max-width: 900px) {
+  .hack-card { grid-template-columns: 1fr; }
+  .hack-right { justify-self: start; }
+} 
+
+/* Spacing between multiple hackathon cards inside a single card */
+.card .hack-card + .hack-card { margin-top: 24px; }
+.hack-extra { color: #555; font-size: 13px; } 

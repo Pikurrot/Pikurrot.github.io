@@ -45,6 +45,8 @@ function iconFor(type) {
       return 'https://cdn.simpleicons.org/arxiv/000000';
     case 'github':
       return 'https://cdn.simpleicons.org/github/000000';
+    case 'devpost':
+      return 'https://cdn.simpleicons.org/devpost/000000';
     default:
       return 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/link-45deg.svg';
   }
@@ -132,6 +134,34 @@ function renderHonor(h) {
   `);
 }
 
+function renderHackathon(h) {
+  const dateText = fmtMonthYear(h.date);
+  const imgs = (h.images || []).slice(0, 2);
+  const mediaClass = imgs.length === 1 ? 'hack-media single' : 'hack-media';
+  const media = imgs.map(src => `<img src="${src}" alt="Hackathon media" />`).join('');
+  const links = (h.links || []).map(l => `
+    <a class="hack-link" href="${l.url}" target="_blank" rel="noreferrer">
+      <img width="16" height="16" src="${iconFor(l.type)}" alt="${l.text}" />
+      <span>${l.text}</span>
+    </a>`).join('');
+  const extra = [h.duration ? `Duration: ${h.duration}` : '', h.challenger ? `Challenger: ${h.challenger}` : '']
+    .filter(Boolean).join(' · ');
+  return el(`
+    <article class="hack-card">
+      <div class="hack-right">
+        <div class="${mediaClass}">${media}</div>
+      </div>
+      <div class="hack-left">
+        <h3 class="hack-title">${h.title}</h3>
+        <div class="hack-meta">${h.place} · ${dateText}</div>
+        ${extra ? `<div class="hack-extra">${extra}</div>` : ''}
+        <p class="hack-desc">${h.desc || ''}</p>
+        <div class="hack-links">${links}</div>
+      </div>
+    </article>
+  `);
+}
+
 async function fetchLastCommitDate() {
   try {
     const res = await fetch('https://api.github.com/repos/Pikurrot/Pikurrot.github.io/commits?per_page=1', { headers: { 'Accept': 'application/vnd.github+json' } });
@@ -168,6 +198,11 @@ window.hydrateSiteData = async function hydrateSiteData() {
     if (projPage) {
       projPage.innerHTML = '';
       data.projects.forEach(p => projPage.appendChild(renderProject(p)));
+    }
+    const hackList = document.getElementById('hackathons-list');
+    if (hackList) {
+      hackList.innerHTML = '';
+      data.hackathons.forEach(h => hackList.appendChild(renderHackathon(h)));
     }
     const expList = document.getElementById('experience-list');
     if (expList) {

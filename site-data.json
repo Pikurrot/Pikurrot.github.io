@@ -8,7 +8,7 @@
         { "name": "Artemis Llabrés", "url": "https://scholar.google.com/citations?user=0VToXYcAAAAJ&hl=ca&oi=ao" },
         { "name": "Ernest Valveny", "url": "https://scholar.google.com/citations?user=ChmX8ogAAAAJ&hl=ca&oi=ao" }
       ],
-      "venue": { "text": "ICDAR 2025 — Workshop on Machine Learning", "url": "https://www2.isical.ac.in/~umapada/ICDARWML25/", "muted": false },
+      "venue": { "text": "ICDAR 2025 — Workshop on Machine Learning", "url": "#", "muted": false },
       "links": [
         { "type": "page", "text": "Page", "url": "https://pikurrot.github.io/RAG-DocVQA/" },
         { "type": "arxiv", "text": "arXiv (soon!)", "url": "#" },
@@ -46,69 +46,97 @@
       "end": "2026-06-30",
       "location": "Barcelona, Catalonia, Spain",
       "logo": "assets/uab.png",
-      "description": "A technical degree covering core computer science fundamentals, with a strong emphasis on Data Science and Artificial Intelligence subjects, and their practical implementation."
-    },
-	{
-		"title": "AIHUB workshop",
-		"company": "CSIC",
-		"start": "2023-07-01",
-		"end": "2023-07-01",
-		"location": "Barcelona, Catalonia, Spain",
-		"logo": "assets/csic.png",
-		"description": "A summer workshop on Data Science, Robotics and AI, including lectures, practical sessions, seminars and hackathons."
-	},
-	{
-		"title": "Science and Technology High School",
-		"company": "IES Matadepera",
-		"start": "2020-09-01",
-		"end": "2022-06-30",
-		"location": "Matadepera, Catalonia, Spain",
-		"logo": "assets/ies_matadepera.png",
-		"description": "A high school degree with a strong emphasis on Science and Technology. Avg grade: 9.1/10. I obtained a final grade of 10 in six subjects including Physics (x2), Mathematics (x2), Technical Drawing and Electrical Engineering. I also got the highest grade in the final Research Work and an award (see Honors and Awards)."
-	},
-	{
-		"title": "Workshop in UAVs",
-		"company": "UPC",
-		"start": "2018-09-01",
-		"end": "2018-09-01",
-		"location": "Terrassa, Catalonia, Spain",
-		"logo": "assets/upc.jpeg",
-		"description": "Assembly, configuration and flight of a UAV (drone)."
-	},
-	{
-		"title": "Workshop in Engineering",
-		"company": "Agrupació Astronòmica de Sabadell",
-		"start": "2016-07-01",
-		"end": "2017-07-01",
-		"location": "Sabadell, Catalonia, Spain",
-		"logo": "assets/astrosabadell.png",
-		"description": "Arduino, Python scientific programming and App development with App Inventor."
-	}
+      "description": "A technical degree covering core computer science fundamentals, with a strong emphasis on Data Science and Artificial Intelligence subjects such as Deep Learning, Natural Language Processing, and Computer Vision. GPA 8.9/10 (top 5%)."
+    }
   ],
   "honors": [
     {
-		"title": "5% of my promotion",
-		"place": "UAB",
-		"date": "2025-07-01",
-		"description": "With a GPA of 8.9/10, I rank as one of the top students with multiple honors in core subjects, such as Deep Learning, Fundamentals of Machine Learning or Fundamentals of Natural Language Processing."
+      "title": "Best Student Award",
+      "place": "Autonomous University of Barcelona",
+      "date": "2025-06-01",
+      "description": "Recognized for academic excellence and research contributions in AI and Computer Vision during the academic year."
+    }
+  ],
+  "hackathons": [
+    {
+      "title": "HackUPC 2025",
+      "place": "Barcelona, Catalonia, Spain",
+      "date": "2025-05-02",
+      "duration": "36 hours",
+      "challenger": "Cupra | Seat",
+      "desc": "A web app to make easier and more fun for the user the interaction with the manual of the new Cupra car model. This included a chatbot to answer questions about the car specifics, a 3D model to visualize the car, and multiple mini-games like a puzzle, a quiz and an interactive parking assistance.",
+      "images": ["assets/hackupc25-chat.png", "assets/hackupc25-model.png"],
+      "links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/mustaphouni04/agents-payretailers" }, { "type": "devpost", "text": "Devpost", "url": "https://devpost.com/software/better-life-bp8gux" } ]
     },
 	{
-		"title": "Elena Maseras Scholarship",
-		"place": "CVC",
-		"date": "2025-07-01",
-		"description": "A scholarship that allows students to do advanced research at Computer Vision Center next to the most talented researchers in the field."
+		"title": "UAB the Hack 2025",
+		"place": "Barcelona, Catalonia, Spain",
+		"date": "2025-03-16",
+		"duration": "24 hours",
+		"challenger": "PayRetailers",
+		"desc": "A web app with an integrated AI agent and chatbot to improve accessibility to governamental information for Latin American communities. The agent is able to dynamically browse the web in real-time to answer any type of questions, accessing to the government web pages. It can also access their public databases and perform retrieval and complex reasonings.",
+		"images": ["assets/uabthehack25-chat.png", "assets/uabthehack25-browser.png"],
+		"links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/mustaphouni04/agents-payretailers" }, { "type": "devpost", "text": "Devpost", "url": "https://devpost.com/software/better-life-bp8gux" } ]
+	},
+	{
+		"title": "Datathon FME 2024",
+		"place": "Barcelona, Catalonia, Spain",
+		"date": "2024-11-16",
+		"duration": "24 hours",
+		"challenger": "Mango",
+		"desc": "The challenge consisted on obtaining the best possible accuracy in a multi-label classification task, where the labels where different design attributes of a clothing set, given only the image and some metadata. Our solution involved a Vision-Transformer, based on Dino-v2, finetuned on the task.",
+		"images": ["assets/datathonfme24.png"],
+		"links": [ { "type": "github", "text": "GitHub (soon!)", "url": "#" }]
+	},
+	{
+		"title": "UAB the Hack 2024",
+		"place": "Barcelona, Catalonia, Spain",
+		"date": "2024-05-18",
+		"duration": "24 hours",
+		"challenger": "Caixa d'Enginyers",
+		"desc": "The classic Travelling Salesman Problem, applied to a real-world scenario in Catalonia, for multiple workers. Our solution involved not only an optimal and efficient graph-based path finding algorithm, but also and Android app for the worker to visualize the route in real-time in the road, with planned stops and rest times.",
+		"images": ["assets/uabthehack24-map.png", "assets/uabthehack24-path.png"],
+		"links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/HackUAB-CE-challenge" }, { "type": "devpost", "text": "Devpost", "url": "https://devpost.com/software/smart-route-finder" } ]
+	},
+    {
+      "title": "HackUPC 2024",
+      "place": "Barcelona, Catalonia, Spain",
+      "date": "2024-05-03",
+      "duration": "36 hours",
+      "challenger": "Inditex",
+      "desc": "A web app to browse similar clothes to a given one, among a database of thousands of images in the Inditex catalog. We finetuned a Resnet-18 neural network to learn the style and specific features of the clothes, and then performed an efficient retrieval.",
+      "images": ["assets/hackupc24-indinet.png"],
+      "links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/hackupc24_inditex" }, { "type": "devpost", "text": "Devpost", "url": "https://devpost.com/software/fashion_indinet" } ]
     },
 	{
-		"title": "Rosa Sensat Scholarship",
-		"place": "CVC",
-		"date": "2024-07-01",
-		"description": "A scholarship to introduce students to do research in AI at Computer Vision Center."
-    },
+		"title": "Merithon 2024",
+		"place": "Manresa, Catalonia, Spain",
+		"date": "2024-04-27",
+		"duration": "9 hours",
+		"challenger": "",
+		"desc": "The challenge was to propose a solution to the classification of thousands of Fake News, which were in multiple formats like tweets, news articles, etc. Our solution, invlolving a RoBERTa-based model finetuned on the task, was able to achieve a 94% accuracy.",
+		"images": ["assets/merithon24-graph.png", "assets/merithon24-matrix.png"],
+		"links": [ { "type": "github", "text": "GitHub (soon!)", "url": "#" }]
+	},
 	{
-		"title": "First prize - Joana Biarnés Awards",
-		"place": "IES Matadepera",
-		"date": "2022-04-01",
-		"description": "Awards for the best research work (TDR) in high school in Terrassa, Matadepera and Viladecavalls. First prize in Technological category with the work: Machine Learning and Artificial Neural Network programming."
-	}
+		"title": "Datathon FME 2023",
+		"place": "Barcelona, Catalonia, Spain",
+		"date": "2023-11-11",
+		"duration": "24 hours",
+		"challenger": "NTT Data",
+		"desc": "Our solution was able to give consistent and informed forecasting of product quantity needs for the healthcare industry for 2023. An intensive data analysis and modeling was the main focus of the challenge.",
+		"images": ["assets/datathonfme23.jpg"],
+		"links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/datathon-challenge-2023" }, { "type": "devpost", "text": "Devpost", "url": "https://devpost.com/software/nttdata-rookiewinners-analyzing-a-healthcare-dataset" } ]
+	},
+    {
+      "title": "HackUPC 2023",
+      "place": "Barcelona, Catalonia, Spain",
+      "date": "2023-05-12",
+      "duration": "36 hours",
+      "challenger": "",
+      "desc": "A Reinforcement-Learning-driven Pacman, where using Q-learning techniques, the agent learns to score points and avoid ghosts in an optimal way. Yes, we focused more on the algorithm than on the game graphics :)",
+      "images": ["assets/hackupc23-pacman.png"],
+      "links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/pac-man-ai" }, { "type": "devpost", "text": "Devpost", "url": "https://devpost.com/software/pac-man-with-machine-learning" } ]
+    }
   ]
 } 

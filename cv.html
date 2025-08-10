@@ -8,14 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
-    <style>
-      .cv-wrap { display: grid; gap: 16px; }
-      .cv-actions { display: flex; gap: 10px; align-items: center; }
-      .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.05); color: #0b0b0b; text-decoration: none; }
-      .btn:hover { background: rgba(0,0,0,0.09); }
-      .cv-embed { width: 100%; height: clamp(60vh, 76vh, 86vh); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; background: rgba(255,255,255,0.6); display: block; }
-      .cv-fallback { padding: 10px; }
-    </style>
   </head>
   <body>
     <canvas id="bg"></canvas>
@@ -27,12 +19,14 @@
           <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="projects.html">Projects</a></li>
+            <li><a href="hackathons.html">Hackathons</a></li>
             <li><a href="cv.html" class="active">CV</a></li>
           </ul>
           <button class="menu-button" aria-label="Open menu" aria-haspopup="true" aria-expanded="false">⋯</button>
           <div class="dropdown-menu" role="menu" aria-hidden="true">
             <a role="menuitem" href="index.html">Home</a>
             <a role="menuitem" href="projects.html">Projects</a>
+            <a role="menuitem" href="hackathons.html">Hackathons</a>
             <a role="menuitem" href="cv.html">CV</a>
           </div>
         </nav>
