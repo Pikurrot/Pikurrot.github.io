@@ -11,7 +11,7 @@
       "venue": { "text": "ICDAR 2025 — Workshop on Machine Learning", "url": "#", "muted": false },
       "links": [
         { "type": "page", "text": "Page", "url": "https://pikurrot.github.io/RAG-DocVQA/" },
-        { "type": "arxiv", "text": "arXiv (soon!)", "url": "#" },
+        { "type": "arxiv", "text": "arXiv", "url": "https://arxiv.org/abs/2508.18984" },
         { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/RAG-DocVQA" }
       ]
     },
