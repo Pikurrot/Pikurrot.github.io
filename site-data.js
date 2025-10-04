@@ -67,6 +67,7 @@ function renderProject(p) {
       <img width="16" height="16" src="${iconFor(l.type)}" alt="${l.text}" />
       <span>${l.text}</span>
     </a>`).join('');
+  const desc = p.desc ? `<p class="proj-desc">${p.desc}</p>` : '';
   return el(`
     <article class="project-card">
       <div class="proj-right">
@@ -76,6 +77,7 @@ function renderProject(p) {
         <h3 class="proj-title">${p.title}</h3>
         <div class="proj-authors">${authors}</div>
         ${badge}
+        ${desc}
         <div class="proj-links">${links}</div>
       </div>
     </article>

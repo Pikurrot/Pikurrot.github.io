@@ -9,6 +9,7 @@
         { "name": "Ernest Valveny", "url": "https://scholar.google.com/citations?user=ChmX8ogAAAAJ&hl=ca&oi=ao" }
       ],
       "venue": { "text": "ICDAR 2025 — Workshop on Machine Learning", "url": "#", "muted": false },
+	  "desc": "A RAG based pipeline for textual / visual document question answering models, which highly improves performance, efficiency and explainability.",
       "links": [
         { "type": "page", "text": "Page", "url": "https://pikurrot.github.io/RAG-DocVQA/" },
         { "type": "arxiv", "text": "arXiv", "url": "https://arxiv.org/abs/2508.18984" },
@@ -20,11 +21,32 @@
       "media": "assets/whispergui.png",
       "authors": [ { "name": "Eric López", "url": "#", "me": true } ],
       "venue": { "text": "Voice transcription software", "muted": true },
+	  "desc": "Transcribe audio and video files locally using state-of-the-art Whisper models. This tool allows any user to use AI for transcription, while still allowing full control over the model and data.",
       "links": [
         { "type": "page", "text": "Page (soon!)", "url": "#" },
         { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/whisper-gui" }
       ]
-    }
+    },
+	{
+		"title": "Business Classification Model",
+		"media": "assets/dl-uab-project.png",
+		"authors": [ { "name": "Eric López", "url": "#", "me": true }, { "name": "Amritpal Singh", "url": "#" }, { "name": "Óscar Arrocha", "url": "#" } ],
+		"venue": { "text": "Bachelor's Deep Learning project", "muted": true },
+		"desc": "A image classification model based on a Multimodal Deep Learning approach, which classifies businesses solely based on an image.",
+		"links": [
+		  { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/business-classification" }
+		]
+	  },
+	  {
+		"title": "Ghost Hunting",
+		"media": "assets/ghost-hunting.webp",
+		"authors": [ { "name": "Eric López", "url": "#", "me": true }],
+		"venue": { "text": "Indie Video Game", "muted": true },
+		"desc": "An adventure game where the player must pick a weapon and navigate through a world full of all kinds of ghosts, passing multiple levels to win.",
+		"links": [
+		  { "type": "", "text": "GameJolt", "url": "https://gamejolt.com/games/ghosthunting/532570" }
+		]
+	  }
   ],
   "experience": [
     {
