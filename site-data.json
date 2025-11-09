@@ -134,6 +134,16 @@
 	}
   ],
   "hackathons": [
+	{
+		"title": "UAB the Hack 2025 Fall",
+		"place": "Barcelona, Catalonia, Spain",
+		"date": "2025-11-08",
+		"duration": "24 hours",
+		"challenger": "Caixa d'Enginyers",
+		"desc": "Finding the best locations in Spain to place three new offices or mobile points for Caixa d'Enginyers, balancing social impact and economic sustainability. Our solution was a web app showing a ranking of best municipalities (according to a model), an interactive heatmap of the country, a language-specific chatbot to answer questions and multiple settings to allow manual control and enhancement of the algorithm.",
+		"images": ["https://player.vimeo.com/video/1135098103?autoplay=1&loop=1&muted=1&background=1"],
+		"links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/phoebe-cividanes/caixaenginyers-heatmap-demo" }, { "type": "devpost", "text": "Devpost", "url": "https://devpost.com/software/afora-pila-aaa" } ]
+	},
     {
       "title": "HackUPC 2025",
       "place": "Barcelona, Catalonia, Spain",
@@ -145,7 +155,7 @@
       "links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/mustaphouni04/agents-payretailers" }, { "type": "devpost", "text": "Devpost", "url": "https://devpost.com/software/better-life-bp8gux" } ]
     },
 	{
-		"title": "UAB the Hack 2025",
+		"title": "UAB the Hack 2025 Spring",
 		"place": "Barcelona, Catalonia, Spain",
 		"date": "2025-03-16",
 		"duration": "24 hours",

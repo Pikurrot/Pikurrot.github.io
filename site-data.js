@@ -136,11 +136,36 @@ function renderHonor(h) {
   `);
 }
 
+function vimeoEmbedUrl(url) {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes('player.vimeo.com')) return url;
+    if (u.hostname.includes('vimeo.com')) {
+      const parts = u.pathname.split('/').filter(Boolean);
+      const id = parts.pop();
+      if (id && /^\d+$/.test(id)) {
+        const params = u.search || '';
+        return `https://player.vimeo.com/video/${id}${params}`;
+      }
+    }
+  } catch (e) {
+    // ignore parsing errors and fall back to original url
+  }
+  return url;
+}
+
 function renderHackathon(h) {
   const dateText = fmtMonthYear(h.date);
   const imgs = (h.images || []).slice(0, 2);
   const mediaClass = imgs.length === 1 ? 'hack-media single' : 'hack-media';
-  const media = imgs.map(src => `<img src="${src}" alt="Hackathon media" />`).join('');
+  const media = imgs.map(src => {
+    const isVimeo = /(^https?:\/\/)?(www\.)?(player\.)?vimeo\.com/.test(src);
+    if (isVimeo) {
+      const embed = vimeoEmbedUrl(src);
+      return `<iframe src="${embed}" title="Vimeo video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    }
+    return `<img src="${src}" alt="Hackathon media" />`;
+  }).join('');
   const links = (h.links || []).map(l => `
     <a class="hack-link" href="${l.url}" target="_blank" rel="noreferrer">
       <img width="16" height="16" src="${iconFor(l.type)}" alt="${l.text}" />
