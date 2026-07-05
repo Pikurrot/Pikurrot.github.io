@@ -1,52 +1,110 @@
 {
   "projects": [
-    {
-      "title": "Enhancing Document VQA Models via Retrieval-Augmented Generation",
-      "media": "assets/text_rag.png",
-      "authors": [
-        { "name": "Eric López", "url": "#", "me": true },
-        { "name": "Artemis Llabrés", "url": "https://scholar.google.com/citations?user=0VToXYcAAAAJ&hl=ca&oi=ao" },
-        { "name": "Ernest Valveny", "url": "https://scholar.google.com/citations?user=ChmX8ogAAAAJ&hl=ca&oi=ao" }
-      ],
-      "venue": { "text": "ICDAR 2025 — Workshop on Machine Learning", "url": "#", "muted": false },
-	  "desc": "A RAG based pipeline for textual / visual document question answering models, which highly improves performance, efficiency and explainability.",
-      "links": [
-        { "type": "page", "text": "Page", "url": "https://pikurrot.github.io/RAG-DocVQA/" },
-        { "type": "arxiv", "text": "arXiv", "url": "https://arxiv.org/abs/2508.18984" },
-        { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/RAG-DocVQA" }
-      ]
-    },
-    {
-      "title": "Whisper-GUI",
-      "media": "assets/whispergui.png",
-      "authors": [ { "name": "Eric López", "url": "#", "me": true } ],
-      "venue": { "text": "Voice transcription software", "muted": true },
-	  "desc": "Transcribe audio and video files locally using state-of-the-art Whisper models. This tool allows any user to use AI for transcription, while still allowing full control over the model and data.",
-      "links": [
-        { "type": "page", "text": "Page (soon!)", "url": "#" },
-        { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/whisper-gui" }
-      ]
-    },
+	{
+		"title": "Whisper-GUI",
+		"media": "assets/whispergui.png",
+		"authors": [ { "name": "Eric López", "url": "#", "me": true } ],
+		"venue": { "text": "Voice transcription software", "muted": true },
+		"desc": "Transcribe audio and video files locally using state-of-the-art Whisper models. This tool allows any user to use AI for transcription, while still allowing full control over the model and data.",
+		"links": [
+		{ "type": "page", "text": "Page (soon!)", "url": "#" },
+		{ "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/whisper-gui" }
+		]
+	},
+	{
+		"title": "Enhancing Document VQA Models via Retrieval-Augmented Generation",
+		"media": "assets/text_rag.png",
+		"authors": [
+			{ "name": "Eric López", "url": "#", "me": true },
+			{ "name": "Artemis Llabrés", "url": "https://scholar.google.com/citations?user=0VToXYcAAAAJ&hl=ca&oi=ao" },
+			{ "name": "Ernest Valveny", "url": "https://scholar.google.com/citations?user=ChmX8ogAAAAJ&hl=ca&oi=ao" }
+		],
+		"venue": { "text": "ICDAR 2025 — Workshop on Machine Learning", "url": "#", "muted": false },
+		"desc": "A RAG based pipeline for textual / visual document question answering models, which highly improves performance, efficiency and explainability.",
+		"links": [
+			{ "type": "page", "text": "Page", "url": "https://pikurrot.github.io/RAG-DocVQA/" },
+			{ "type": "arxiv", "text": "arXiv", "url": "https://arxiv.org/abs/2508.18984" },
+			{ "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/RAG-DocVQA" }
+		]
+	},
+	{
+		"title": "Beyond Direct Answers: An Agentic Socratic AI Tutor for Education",
+		"media": "assets/tutor-demo.mov",
+		"authors": [ { "name": "Eric López", "url": "#", "me": true } ],
+		"venue": { "text": "Thesis project for my Bachelor's degree", "muted": true },
+		"desc": "An agentic Socratic AI tutor, which can specialize in a specific subject curriculum, using RAG, and has the personality of a real private tutor, that maintains a socratic conversation with the student, guiding them to the answer instead of giving it directly. An interface was designed to demo a real student to interact with the tutor to prepare for a real exam.",
+		"links": [
+		{ "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/Agent-Tutor" }
+		]
+	},
+	{
+		"title": "Autonomous Navigation using Computer Vision",
+		"media": "assets/autonomous-car-demo.mp4",
+		"authors": [ { "name": "Eric López", "url": "#", "me": true },
+		{ "name": "Amritpal Singh", "url": "https://www.linkedin.com/in/amritpal-singh-5499b41a1/" },
+		{ "name": "Miguel Arpa", "url": "https://www.linkedin.com/in/miguel-arpa-robig-55a530155/" }],
+		"venue": { "text": "Bachelor's Autonomous Navigation project", "muted": true },
+		"desc": "A navigation system using real-time computer vision to navigate the autonomous vehicle through a predefined circuit. We trained a deep learning model to learn to drive, avoid obstacles and navigate in different light conditions.",
+		"links": []
+	},
+	{
+		"title": "Optimized 3D Reconstruction and Object Detection with Gaussian Splatting",
+		"media": "assets/gaussian-pipeline.png",
+		"authors": [ { "name": "Eric López", "url": "#", "me": true },
+		{ "name": "Álvaro Sáenz-Torre", "url": "https://www.linkedin.com/in/%C3%A1lvaro-s%C3%A1enz-torre-de-torre-7a10b13a4/" },
+		{ "name": "Luis Domene", "url": "https://www.linkedin.com/in/luis-domene-garcia/?locale=en" }],
+		"venue": { "text": "Bachelor's 3D Vision project", "muted": true },
+		"desc": "A 3D reconstruction and object detection pipeline where, instead of standard Gaussian Splatting, we use a custom Gaussian Network, this way optimizing the pipeline to run on a mobile device in real-time.",
+		"links": [
+		{ "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/3D-Vision-Project" }
+		]
+	},
+	{
+		"title": "Solving the Atari's Donkey Kong with Reinforcement Learning",
+		"media": "assets/dkong.gif",
+		"authors": [ { "name": "Eric López", "url": "#", "me": true },
+		{ "name": "Amelia Gómez", "url": "https://www.linkedin.com/in/amelia-g%C3%B3mez-grabowska-4a0a69273/" },
+		{ "name": "Álvaro Sáenz-Torre", "url": "https://www.linkedin.com/in/%C3%A1lvaro-s%C3%A1enz-torre-de-torre-7a10b13a4/" } ],
+		"venue": { "text": "Bachelor's Reinforcement Learning project", "muted": true },
+		"desc": "A reinforcement learning approach to solve the Atari 2600's Donkey Kong game, using the PPO algorithm to learn the optimal policy.",
+		"links": [
+		{ "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/RL-Project" }
+		]
+	},
+	{
+		"title": "Combining Self-Supervised Learning Pretraining with Continual Learning for Image Captioning",
+		"media": "assets/image-captioning.png",
+		"authors": [ { "name": "Eric López", "url": "#", "me": true },
+		{ "name": "Amritpal Singh", "url": "https://www.linkedin.com/in/amritpal-singh-5499b41a1/" },
+		{ "name": "Óscar Arrocha", "url": "https://www.linkedin.com/in/oscar-arrocha-ia/" } ],
+		"venue": { "text": "Bachelor's Advanced Machine Learning project", "muted": true },
+		"desc": "A self-supervised learning pretraining approach for image captioning, which combines self-supervised learning with continual learning to improve the performance of the model and be able to adapt to new image domains without forgetting the previous ones.",
+		"links": [
+		{ "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/AML-Project" }
+		]
+	},
 	{
 		"title": "Business Classification Model",
 		"media": "assets/dl-uab-project.png",
-		"authors": [ { "name": "Eric López", "url": "#", "me": true }, { "name": "Amritpal Singh", "url": "#" }, { "name": "Óscar Arrocha", "url": "#" } ],
+		"authors": [ { "name": "Eric López", "url": "#", "me": true },
+		{ "name": "Amritpal Singh", "url": "https://www.linkedin.com/in/amritpal-singh-5499b41a1/" },
+		{ "name": "Óscar Arrocha", "url": "https://www.linkedin.com/in/oscar-arrocha-ia/" } ],
 		"venue": { "text": "Bachelor's Deep Learning project", "muted": true },
 		"desc": "A image classification model based on a Multimodal Deep Learning approach, which classifies businesses solely based on an image.",
 		"links": [
-		  { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/business-classification" }
+		{ "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/business-classification" }
 		]
-	  },
-	  {
+	},
+	{
 		"title": "Ghost Hunting",
 		"media": "assets/ghost-hunting.webp",
 		"authors": [ { "name": "Eric López", "url": "#", "me": true }],
 		"venue": { "text": "Indie Video Game", "muted": true },
 		"desc": "An adventure game where the player must pick a weapon and navigate through a world full of all kinds of ghosts, passing multiple levels to win.",
 		"links": [
-		  { "type": "", "text": "GameJolt", "url": "https://gamejolt.com/games/ghosthunting/532570" }
+		{ "type": "", "text": "GameJolt", "url": "https://gamejolt.com/games/ghosthunting/532570" }
 		]
-	  }
+	}
   ],
   "experience": [
     {
@@ -54,10 +112,10 @@
       "company": "Computer Vision Center (CVC)",
       "type": "Internship",
       "start": "2024-09-05",
-      "end": null,
+      "end": "2026-06-30",
       "location": "Barcelona, Catalonia, Spain",
       "logo": "assets/cvc.png",
-      "description": "Implemented a RAG system for a multimodal document question answering LLM, improving the performance of baseline models considerably on multi-page settings. I wrote a paper on it, which got accepted in a workshop at ICDAR 2025, and I will present it in Wuhan, China. I also did research on Mixture of Experts, and currently exploring new paradigms in the verification of multimodal Fake News."
+      "description": "Implemented a RAG system for a multimodal document question answering LLM, improving the performance of baseline models considerably on multi-page settings. I wrote a paper on it, which I presented orally at ICDAR 2025, in Wuhan, China. I also did research on Mixture of Experts, verification of multimodal Fake News and Agentic AI."
     }
   ],
   "education": [
@@ -68,7 +126,7 @@
       "end": "2026-06-30",
       "location": "Barcelona, Catalonia, Spain",
       "logo": "assets/uab.png",
-      "description": "A technical degree covering core computer science fundamentals, with a strong emphasis on Data Science and Artificial Intelligence subjects such as Deep Learning, Natural Language Processing, and Computer Vision. GPA 8.9/10 (top 5%)."
+      "description": "A technical degree covering core computer science fundamentals, with a strong emphasis on Data Science and Artificial Intelligence subjects such as Deep Learning, Natural Language Processing, and Computer Vision. GPA 8.9/10 (top 5%). I presented my thesis on an Agentic Socratic AI Tutor for Education, which got a grade of 9.8/10!"
     },
 	{
 		"title": "AIHUB workshop",
@@ -134,6 +192,16 @@
 	}
   ],
   "hackathons": [
+	{
+		"title": "SwissHacks 2026",
+		"place": "Zurich, Switzerland",
+		"date": "2026-06-19",
+		"duration": "48 hours",
+		"challenger": "SIX",
+		"desc": "A multi-agent intelligence system that helps Relationship Managers react to portfolio-relevant news with context, conviction, and compliance in mind. Everything flows into a Wealth Advisory Dashboard to help the RM make the best decisions.",
+		"images": ["assets/swisshacks-demo.gif"],
+		"links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/SwissHacks-HispanIA" }]
+	},
 	{
 		"title": "UAB the Hack 2025 Fall",
 		"place": "Barcelona, Catalonia, Spain",

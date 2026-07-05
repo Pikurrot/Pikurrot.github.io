@@ -52,6 +52,10 @@ function iconFor(type) {
   }
 }
 
+function isVideo(src) {
+  return /\.(mp4|webm|ogg|mov)(\?|$)/i.test(src);
+}
+
 function renderProject(p) {
   const venue = p.venue || {};
   const badge = venue.url && !venue.muted
@@ -68,10 +72,14 @@ function renderProject(p) {
       <span>${l.text}</span>
     </a>`).join('');
   const desc = p.desc ? `<p class="proj-desc">${p.desc}</p>` : '';
+  const mediaSrc = p.media;
+  const mediaHtml = isVideo(mediaSrc)
+    ? `<video class="proj-media" src="${mediaSrc}" autoplay loop muted playsinline></video>`
+    : `<img class="proj-media" src="${mediaSrc}" alt="Project preview" />`;
   return el(`
     <article class="project-card">
       <div class="proj-right">
-        <img class="proj-media" src="${p.media}" alt="Project preview" />
+        ${mediaHtml}
       </div>
       <div class="proj-left">
         <h3 class="proj-title">${p.title}</h3>
@@ -163,6 +171,9 @@ function renderHackathon(h) {
     if (isVimeo) {
       const embed = vimeoEmbedUrl(src);
       return `<iframe src="${embed}" title="Vimeo video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    }
+    if (isVideo(src)) {
+      return `<video src="${src}" autoplay loop muted playsinline></video>`;
     }
     return `<img src="${src}" alt="Hackathon media" />`;
   }).join('');
