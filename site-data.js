@@ -73,9 +73,12 @@ function renderProject(p) {
     </a>`).join('');
   const desc = p.desc ? `<p class="proj-desc">${p.desc}</p>` : '';
   const mediaSrc = p.media;
-  const mediaHtml = isVideo(mediaSrc)
-    ? `<video class="proj-media" src="${mediaSrc}" autoplay loop muted playsinline></video>`
-    : `<img class="proj-media" src="${mediaSrc}" alt="Project preview" />`;
+  const isVimeoMedia = /(^https?:\/\/)?(www\.)?(player\.)?vimeo\.com/.test(mediaSrc);
+  const mediaHtml = isVimeoMedia
+    ? `<iframe class="proj-media" src="${vimeoEmbedUrl(mediaSrc)}" title="Vimeo video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+    : isVideo(mediaSrc)
+      ? `<video class="proj-media" src="${mediaSrc}" autoplay loop muted playsinline></video>`
+      : `<img class="proj-media" src="${mediaSrc}" alt="Project preview" />`;
   return el(`
     <article class="project-card">
       <div class="proj-right">

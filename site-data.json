@@ -29,7 +29,7 @@
 	},
 	{
 		"title": "Beyond Direct Answers: An Agentic Socratic AI Tutor for Education",
-		"media": "assets/tutor-demo.mp4",
+		"media": "https://player.vimeo.com/video/1207135848?autoplay=1&loop=1&muted=1&background=1",
 		"authors": [ { "name": "Eric López", "url": "#", "me": true } ],
 		"venue": { "text": "Thesis project for my Bachelor's degree", "muted": true },
 		"desc": "An agentic Socratic AI tutor, which can specialize in a specific subject curriculum, using RAG, and has the personality of a real private tutor, that maintains a socratic conversation with the student, guiding them to the answer instead of giving it directly. An interface was designed to demo a real student to interact with the tutor to prepare for a real exam.",
@@ -39,7 +39,7 @@
 	},
 	{
 		"title": "Autonomous Navigation using Computer Vision",
-		"media": "assets/autonomous-car-demo.mp4",
+		"media": "https://player.vimeo.com/video/1207135868?autoplay=1&loop=1&muted=1&background=1",
 		"authors": [ { "name": "Eric López", "url": "#", "me": true },
 		{ "name": "Amritpal Singh", "url": "https://www.linkedin.com/in/amritpal-singh-5499b41a1/" },
 		{ "name": "Miguel Arpa", "url": "https://www.linkedin.com/in/miguel-arpa-robig-55a530155/" }],
@@ -61,7 +61,7 @@
 	},
 	{
 		"title": "Solving the Atari's Donkey Kong with Reinforcement Learning",
-		"media": "assets/dkong.gif",
+		"media": "https://player.vimeo.com/video/1207135973?autoplay=1&loop=1&muted=1&background=1",
 		"authors": [ { "name": "Eric López", "url": "#", "me": true },
 		{ "name": "Amelia Gómez", "url": "https://www.linkedin.com/in/amelia-g%C3%B3mez-grabowska-4a0a69273/" },
 		{ "name": "Álvaro Sáenz-Torre", "url": "https://www.linkedin.com/in/%C3%A1lvaro-s%C3%A1enz-torre-de-torre-7a10b13a4/" } ],
@@ -205,7 +205,7 @@
 		"duration": "48 hours",
 		"challenger": "SIX",
 		"desc": "A multi-agent intelligence system that helps Relationship Managers react to portfolio-relevant news with context, conviction, and compliance in mind. Everything flows into a Wealth Advisory Dashboard to help the RM make the best decisions.",
-		"images": ["assets/swisshacks-demo.mp4"],
+		"images": ["https://player.vimeo.com/video/1207135860?autoplay=1&loop=1&muted=1&background=1"],
 		"links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/SwissHacks-HispanIA" }]
 	},
 	{
