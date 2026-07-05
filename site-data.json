@@ -29,7 +29,7 @@
 	},
 	{
 		"title": "Beyond Direct Answers: An Agentic Socratic AI Tutor for Education",
-		"media": "assets/tutor-demo.mov",
+		"media": "assets/tutor-demo.mp4",
 		"authors": [ { "name": "Eric López", "url": "#", "me": true } ],
 		"venue": { "text": "Thesis project for my Bachelor's degree", "muted": true },
 		"desc": "An agentic Socratic AI tutor, which can specialize in a specific subject curriculum, using RAG, and has the personality of a real private tutor, that maintains a socratic conversation with the student, guiding them to the answer instead of giving it directly. An interface was designed to demo a real student to interact with the tutor to prepare for a real exam.",
@@ -199,7 +199,7 @@
 		"duration": "48 hours",
 		"challenger": "SIX",
 		"desc": "A multi-agent intelligence system that helps Relationship Managers react to portfolio-relevant news with context, conviction, and compliance in mind. Everything flows into a Wealth Advisory Dashboard to help the RM make the best decisions.",
-		"images": ["assets/swisshacks-demo.gif"],
+		"images": ["assets/swisshacks-demo.mp4"],
 		"links": [ { "type": "github", "text": "GitHub", "url": "https://github.com/Pikurrot/SwissHacks-HispanIA" }]
 	},
 	{
